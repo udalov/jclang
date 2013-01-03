@@ -8,6 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.udalov.jclang.Diagnostic.DisplayOptions.DISPLAY_SOURCE_LOCATION;
+
 public class DiagnosticTest extends ClangTest {
     private final File file;
     private static final String EXPECTED_SUFFIX = ".expected";
@@ -27,6 +29,7 @@ public class DiagnosticTest extends ClangTest {
             writeExpectedDiagnostics(actual);
             fail("Expected file wasn't found, it will be created");
         }
+        // TODO: compare two big strings instead (for better IDEA diff view)
         assertEquals(expected, actual);
     }
 
@@ -40,7 +43,7 @@ public class DiagnosticTest extends ClangTest {
     private List<String> serializeDiagnostics(@NotNull List<Diagnostic> diagnostics) {
         List<String> result = new ArrayList<String>(diagnostics.size());
         for (Diagnostic diagnostic : diagnostics) {
-            String s = diagnostic.format(1 /* Display source location */);
+            String s = diagnostic.format(DISPLAY_SOURCE_LOCATION);
             result.add(s.substring(s.lastIndexOf('/') + 1));
         }
         return result;
@@ -71,7 +74,7 @@ public class DiagnosticTest extends ClangTest {
 
     public static TestSuite suite() {
         TestSuite suite = new TestSuite();
-        File dir = new File("testData/diagnostic");
+        File dir = new File(getTestDataDir(), "diagnostic");
         File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
