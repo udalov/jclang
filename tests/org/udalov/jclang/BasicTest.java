@@ -26,7 +26,7 @@ public class BasicTest extends ClangTest {
     public void testParseTranslationUnit() {
         Index index = createIndex(false, false);
         try {
-            index.parseTranslationUnit(null, 0);
+            index.parseTranslationUnit(null, new String[]{});
         } catch (TranslationException e) {
             // OK
             return;
@@ -36,7 +36,7 @@ public class BasicTest extends ClangTest {
 
     public void testDiagnosticDisplayOptions() {
         Index index = createIndex(false, false);
-        TranslationUnit unit = index.parseTranslationUnit(getDir() + "diagnosticDisplayOptions.h", 0);
+        TranslationUnit unit = index.parseTranslationUnit(getDir() + "diagnosticDisplayOptions.h", new String[]{});
         List<Diagnostic> diagnostics = unit.getDiagnostics();
         assertEquals(1, diagnostics.size());
         Diagnostic diagnostic = diagnostics.iterator().next();

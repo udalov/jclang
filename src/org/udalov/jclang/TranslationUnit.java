@@ -7,6 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TranslationUnit extends PointerType {
+    public enum Flag {
+        DETAILED_PREPROCESSING_RECORD,
+        INCOMPLETE,
+        PRECOMPILED_PREAMBLE,
+        CACHE_COMPLETION_RESULTS,
+        FOR_SERIALIZATION,
+        @Deprecated CXX_CHAINED_PCH,
+        SKIP_FUNCTION_BODIES,
+        INCLUDE_BRIEF_COMMENTS_IN_CODE_COMPLETION
+    }
+
     @NotNull
     public List<Diagnostic> getDiagnostics() {
         int n = LibClang.I.getNumDiagnostics(this);
