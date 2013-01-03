@@ -4,9 +4,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.udalov.jclang.Diagnostic.DisplayOptions.*;
+import static org.udalov.jclang.Diagnostic.Severity;
+import static org.udalov.jclang.Diagnostic.Severity.*;
 
 public class BasicTest extends ClangTest {
     @NotNull
@@ -51,5 +55,16 @@ public class BasicTest extends ClangTest {
         writer.println(diagnostic.format(DISPLAY_CATEGORY_NAME));
         writer.close();
         assertEquals(TestUtils.loadFileContents(getDir() + "diagnosticDisplayOptions.txt"), str.toString());
+    }
+
+    public void testDiagnosticSeverity() {
+        Index index = createIndex(false, false);
+        TranslationUnit unit = index.parseTranslationUnit(getDir() + "diagnosticSeverity.h", new String[]{});
+        List<Diagnostic> diagnostics = unit.getDiagnostics();
+        List<Severity> actual = new ArrayList<Severity>(diagnostics.size());
+        for (Diagnostic diagnostic : diagnostics) {
+            actual.add(diagnostic.getSeverity());
+        }
+        assertEquals(Arrays.asList(ERROR, WARNING, FATAL), actual);
     }
 }

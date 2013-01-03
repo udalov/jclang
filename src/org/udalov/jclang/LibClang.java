@@ -37,6 +37,8 @@ import java.util.HashMap;
     @NotNull
     Diagnostic getDiagnostic(@NotNull TranslationUnit unit, int index);
 
+    int getDiagnosticSeverity(@NotNull Diagnostic diagnostic);
+
     @NotNull
     CXString formatDiagnostic(@NotNull Diagnostic diagnostic, int options);
 }

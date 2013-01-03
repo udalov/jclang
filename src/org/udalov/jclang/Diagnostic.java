@@ -14,6 +14,14 @@ public class Diagnostic extends PointerType {
         DISPLAY_CATEGORY_NAME
     }
 
+    public enum Severity {
+        IGNORED,
+        NOTE,
+        WARNING,
+        ERROR,
+        FATAL
+    }
+
     @NotNull
     public String format(@NotNull DisplayOptions... options) {
         // TODO: dealloc
@@ -23,5 +31,11 @@ public class Diagnostic extends PointerType {
         }
         CXString string = LibClang.I.formatDiagnostic(this, flags);
         return LibClang.I.getCString(string);
+    }
+
+    @NotNull
+    public Severity getSeverity() {
+        int severity = LibClang.I.getDiagnosticSeverity(this);
+        return Severity.values()[severity];
     }
 }
