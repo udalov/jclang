@@ -6,6 +6,7 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.udalov.jclang.structs.CXString;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -21,10 +22,21 @@ import java.util.HashMap;
     }});
 
     @NotNull
+    String getCString(@NotNull CXString string);
+
+    @NotNull
     Index createIndex(boolean excludeDeclarationsFromPCH, boolean displayDiagnostics);
 
     // TODO: class CXUnsavedFile extends Structure
     @Nullable
     TranslationUnit parseTranslationUnit(@NotNull Index index, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
                                          int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles, int options);
+
+    int getNumDiagnostics(@NotNull TranslationUnit unit);
+
+    @NotNull
+    Diagnostic getDiagnostic(@NotNull TranslationUnit unit, int index);
+
+    @NotNull
+    CXString formatDiagnostic(@NotNull Diagnostic diagnostic, int options);
 }

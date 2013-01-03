@@ -1,0 +1,4 @@
+unknownTypeNames.h:1: error: unknown type name 'some_non_existing_type'
+unknownTypeNames.h:3: error: unknown type name 'bool'
+unknownTypeNames.h:5: error: unknown type name 'boolean'
+unknownTypeNames.h:9: error: cannot combine with previous 'int' declaration specifier
