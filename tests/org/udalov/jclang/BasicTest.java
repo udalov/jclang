@@ -22,13 +22,13 @@ public class BasicTest extends ClangTest {
         boolean[] booleans = {false, true};
         for (boolean excludeDeclarationsFromPCH : booleans) {
             for (boolean displayDiagnostics : booleans) {
-                assertNotNull(createIndex(excludeDeclarationsFromPCH, displayDiagnostics));
+                assertNotNull(Clang.INSTANCE.createIndex(excludeDeclarationsFromPCH, displayDiagnostics));
             }
         }
     }
 
     public void testParseTranslationUnit() {
-        Index index = createIndex(false, false);
+        Index index = Clang.INSTANCE.createIndex(false, false);
         try {
             index.parseTranslationUnit(null, new String[]{});
         } catch (TranslationException e) {
@@ -39,7 +39,7 @@ public class BasicTest extends ClangTest {
     }
 
     public void testDiagnosticDisplayOptions() {
-        Index index = createIndex(false, false);
+        Index index = Clang.INSTANCE.createIndex(false, false);
         TranslationUnit unit = index.parseTranslationUnit(getDir() + "diagnosticDisplayOptions.h", new String[]{});
         List<Diagnostic> diagnostics = unit.getDiagnostics();
         assertEquals(1, diagnostics.size());
@@ -58,7 +58,7 @@ public class BasicTest extends ClangTest {
     }
 
     public void testDiagnosticSeverity() {
-        Index index = createIndex(false, false);
+        Index index = Clang.INSTANCE.createIndex(false, false);
         TranslationUnit unit = index.parseTranslationUnit(getDir() + "diagnosticSeverity.h", new String[]{});
         List<Diagnostic> diagnostics = unit.getDiagnostics();
         List<Severity> actual = new ArrayList<Severity>(diagnostics.size());

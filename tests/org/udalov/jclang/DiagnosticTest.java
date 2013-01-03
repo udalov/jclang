@@ -20,7 +20,7 @@ public class DiagnosticTest extends ClangTest {
 
     @Override
     protected void runTest() throws Throwable {
-        Index index = createIndex(false, false);
+        Index index = Clang.INSTANCE.createIndex(false, false);
         TranslationUnit unit = index.parseTranslationUnit(file.getPath(), new String[]{});
         List<Diagnostic> diagnostics = unit.getDiagnostics();
         List<String> actual = serializeDiagnostics(diagnostics);
