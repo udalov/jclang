@@ -29,10 +29,14 @@ public class BasicTest extends ClangTest {
 
     public void testParseTranslationUnit() {
         Index index = Clang.INSTANCE.createIndex(false, false);
+        index.parseTranslationUnit(TestUtils.createFileWithContents("").getAbsolutePath(), new String[]{});
+    }
+
+    public void testTranslationException() {
+        Index index = Clang.INSTANCE.createIndex(false, false);
         try {
             index.parseTranslationUnit(null, new String[]{});
         } catch (TranslationException e) {
-            // OK
             return;
         }
         fail("TranslationException expected");

@@ -2,8 +2,7 @@ package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
 public class TestUtils {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -21,7 +20,22 @@ public class TestUtils {
             }
             reader.close();
             return sb.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+            throw rethrow(e);
+        }
+    }
+
+    @NotNull
+    public static File createFileWithContents(@NotNull String contents) {
+        try {
+            File dummy = File.createTempFile("jclang", ".h");
+            PrintWriter writer = new PrintWriter(dummy);
+            writer.println(contents);
+            writer.close();
+            return dummy;
+        }
+        catch (Exception e) {
             throw rethrow(e);
         }
     }
