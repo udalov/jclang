@@ -19,6 +19,7 @@ package org.udalov.jclang;
 import com.sun.jna.PointerType;
 import org.jetbrains.annotations.NotNull;
 import org.udalov.jclang.structs.CXString;
+import org.udalov.jclang.util.Util;
 
 public class Diagnostic extends PointerType {
     public enum DisplayOptions {
@@ -41,10 +42,7 @@ public class Diagnostic extends PointerType {
     @NotNull
     public String format(@NotNull DisplayOptions... options) {
         // TODO: dealloc
-        int flags = 0;
-        for (DisplayOptions option : options) {
-            flags |= 1 << option.ordinal();
-        }
+        int flags = Util.buildOptionsMask(options);
         CXString string = LibClang.I.formatDiagnostic(this, flags);
         return LibClang.I.getCString(string);
     }
