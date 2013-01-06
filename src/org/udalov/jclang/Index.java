@@ -16,9 +16,12 @@
 
 package org.udalov.jclang;
 
+import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
+import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.udalov.jclang.structs.NativeIndexerCallbacks;
 import org.udalov.jclang.util.Util;
 
 import static org.udalov.jclang.TranslationUnit.Flag;
@@ -34,5 +37,27 @@ public class Index extends PointerType {
             throw new TranslationException();
         }
         return translationUnit;
+    }
+
+    @NotNull
+    private Pointer createIndexAction() {
+        // TODO: dealloc after the translation unit
+        return LibClang.I.IndexAction_create(this);
+    }
+
+    @NotNull
+    public TranslationUnit indexSourceFile(@NotNull IndexerCallback callback, @Nullable String sourceFilename, @NotNull String[] args, @NotNull Flag... options) throws IndexException {
+        Pointer indexAction = createIndexAction();
+        NativeIndexerCallbacks callbacks = new NativeIndexerCallbacks(callback);
+        int flags = Util.buildOptionsMask(options);
+        PointerByReference tuRef = new PointerByReference();
+        int exitCode = LibClang.I.indexSourceFile(indexAction, null, callbacks, callbacks.size(), 0 /* TODO: CXIndexOptFlags */,
+                sourceFilename, args, args.length, null, 0, tuRef, flags);
+        if (exitCode != 0) {
+            throw new IndexException(exitCode);
+        }
+        TranslationUnit tu = new TranslationUnit();
+        tu.setPointer(tuRef.getValue());
+        return tu;
     }
 }

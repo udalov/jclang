@@ -16,13 +16,12 @@
 
 package org.udalov.jclang;
 
-import com.sun.jna.FunctionMapper;
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
+import com.sun.jna.*;
+import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.udalov.jclang.structs.CXString;
+import org.udalov.jclang.structs.NativeIndexerCallbacks;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -47,6 +46,16 @@ import java.util.HashMap;
     @Nullable
     TranslationUnit parseTranslationUnit(@NotNull Index index, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
                                          int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles, int options);
+
+
+    @NotNull
+    Pointer IndexAction_create(@NotNull Index index);
+
+    int indexSourceFile(@NotNull Pointer indexAction, @Nullable Void clientData, @NotNull NativeIndexerCallbacks indexCallbacks,
+                        int indexCallbacksSize, int indexOptions, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
+                        int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles,
+                        @Nullable PointerByReference translationUnit, int tuOptions);
+
 
     int getNumDiagnostics(@NotNull TranslationUnit unit);
 
