@@ -16,8 +16,8 @@
 
 package org.udalov.jclang;
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
-
-    void startedTranslationUnit();
+public abstract class AbstractIndexerCallback implements IndexerCallback {
+    @Override
+    public void startedTranslationUnit() {
+    }
 }

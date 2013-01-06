@@ -37,7 +37,7 @@ public class IndexTest extends ClangTest {
 
     public void testStartedTranslationUnit() {
         final boolean[] started = new boolean[] {false};
-        indexTestDeclarations(new IndexerCallback() {
+        indexTestDeclarations(new AbstractIndexerCallback() {
             @Override
             public void startedTranslationUnit() {
                 assertFalse(started[0]);
