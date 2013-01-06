@@ -39,6 +39,11 @@ import java.util.HashMap;
     @NotNull
     String getCString(@NotNull CXString string);
 
+
+    @NotNull
+    CXString getFileName(@NotNull CXFile file);
+
+
     @NotNull
     Index createIndex(boolean excludeDeclarationsFromPCH, boolean displayDiagnostics);
 

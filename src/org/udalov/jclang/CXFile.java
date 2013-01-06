@@ -16,14 +16,18 @@
 
 package org.udalov.jclang;
 
+import com.sun.jna.PointerType;
 import org.jetbrains.annotations.NotNull;
+import org.udalov.jclang.structs.CXString;
 
 import java.io.File;
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
-
-    void enteredMainFile(@NotNull File mainFile);
-
-    void startedTranslationUnit();
+public class CXFile extends PointerType {
+    @NotNull
+    public File toFile() {
+        CXString name = LibClang.I.getFileName(this);
+        // TODO: dealloc
+        String nameString = LibClang.I.getCString(name);
+        return new File(nameString);
+    }
 }

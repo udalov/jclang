@@ -21,6 +21,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.udalov.jclang.CXFile;
 import org.udalov.jclang.IndexerCallback;
 
 @SuppressWarnings("unused")
@@ -28,7 +29,7 @@ public class NativeIndexerCallbacks extends Structure {
     // TODO: all callbacks
     public Callback abortQuery;
     public Callback diagnostic;
-    public Callback enteredMainFile;
+    public EnteredMainFileCallback enteredMainFile;
     public Callback ppIncludedFile;
     public Callback importedASTFile;
     public StartedTranslationUnitCallback startedTranslationUnit;
@@ -42,6 +43,14 @@ public class NativeIndexerCallbacks extends Structure {
 
     public NativeIndexerCallbacks(@NotNull final IndexerCallback callback) {
         super();
+        this.enteredMainFile = new EnteredMainFileCallback() {
+            @Nullable
+            @Override
+            public Pointer apply(@Nullable Pointer clientData, @NotNull CXFile mainFile, @Nullable Pointer reserved) {
+                callback.enteredMainFile(mainFile.toFile());
+                return null;
+            }
+        };
         this.startedTranslationUnit = new StartedTranslationUnitCallback() {
             @Override
             public void apply(@Nullable Pointer clientData, @Nullable Pointer reserved) {
@@ -54,6 +63,11 @@ public class NativeIndexerCallbacks extends Structure {
     private void initFieldOrder() {
         setFieldOrder(new String[]{"abortQuery", "diagnostic", "enteredMainFile", "ppIncludedFile", "importedASTFile",
                                    "startedTranslationUnit", "indexDeclaration", "indexEntityReference"});
+    }
+
+    public interface EnteredMainFileCallback extends Callback {
+        @Nullable
+        Pointer apply(@Nullable Pointer clientData, @NotNull CXFile mainFile, @Nullable Pointer reserved);
     }
 
     public interface StartedTranslationUnitCallback extends Callback {

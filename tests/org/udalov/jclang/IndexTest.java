@@ -18,6 +18,8 @@ package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+
 public class IndexTest extends ClangTest {
     @NotNull
     private String getDir() {
@@ -25,9 +27,14 @@ public class IndexTest extends ClangTest {
     }
 
     @NotNull
+    private String getTestDeclarationsFile() {
+        return getDir() + "declarations.h";
+    }
+
+    @NotNull
     private TranslationUnit indexTestDeclarations(@NotNull IndexerCallback callback) {
         Index index = Clang.INSTANCE.createIndex(false, false);
-        return index.indexSourceFile(callback, getDir() + "declarations.h", new String[]{});
+        return index.indexSourceFile(callback, getTestDeclarationsFile(), new String[]{});
     }
 
     public void testIndexSourceFileWithEmptyCallback() {
@@ -45,5 +52,17 @@ public class IndexTest extends ClangTest {
             }
         });
         assertTrue(started[0]);
+    }
+
+    public void testEnteredMainFile() {
+        final File[] handle = new File[] {null};
+        indexTestDeclarations(new AbstractIndexerCallback() {
+            @Override
+            public void enteredMainFile(@NotNull File mainFile) {
+                handle[0] = mainFile;
+            }
+        });
+        assertNotNull(handle[0]);
+        assertEquals(new File(getTestDeclarationsFile()).getAbsoluteFile(), handle[0].getAbsoluteFile());
     }
 }
