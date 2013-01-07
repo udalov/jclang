@@ -20,13 +20,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class DeclarationInfo {
     private final Cursor cursor;
+    private final IndexLocation location;
     private final boolean isRedeclaration;
     private final boolean isDefinition;
     private final boolean isContainer;
     private final boolean isImplicit;
 
-    public DeclarationInfo(@NotNull Cursor cursor, boolean isRedeclaration, boolean isDefinition, boolean isContainer, boolean isImplicit) {
+    public DeclarationInfo(
+            @NotNull Cursor cursor,
+            @NotNull IndexLocation location,
+            boolean isRedeclaration,
+            boolean isDefinition,
+            boolean isContainer,
+            boolean isImplicit
+    ) {
         this.cursor = cursor;
+        this.location = location;
         this.isRedeclaration = isRedeclaration;
         this.isDefinition = isDefinition;
         this.isContainer = isContainer;
@@ -36,6 +45,11 @@ public class DeclarationInfo {
     @NotNull
     public Cursor getCursor() {
         return cursor;
+    }
+
+    @NotNull
+    public IndexLocation getLocation() {
+        return location;
     }
 
     public boolean isRedeclaration() {

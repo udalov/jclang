@@ -77,6 +77,8 @@ public class IndexTest extends ClangTest {
             @Override
             public void indexDeclaration(@NotNull DeclarationInfo info) {
                 Cursor cursor = info.getCursor();
+                IndexLocation location = info.getLocation();
+                out.print(location.getLine() + ":" + location.getColumn() + " ");
                 out.print(cursor.getKind().getSpelling() + " ");
                 String spelling = cursor.getSpelling();
                 out.print(spelling.isEmpty() ? "<no-name>" : spelling);

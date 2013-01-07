@@ -1,17 +1,17 @@
-VarDecl i def
-VarDecl ch def
-VarDecl str def
-VarDecl ptr def
-TypedefDecl UndefinedStruct def
-StructDecl UndefinedStructImpl
-TypedefDecl Struct def
-StructDecl <no-name> def cnt
-FieldDecl j def
-FieldDecl p_str def
-VarDecl int_arr def
-FunctionDecl foo
-FunctionDecl bar
-FunctionDecl baz
-FunctionDecl quux
-TypedefDecl Foo def
-TypedefDecl Bar def
+1:5 VarDecl i def
+2:6 VarDecl ch def
+3:7 VarDecl str def
+4:7 VarDecl ptr def
+6:36 TypedefDecl UndefinedStruct def
+6:16 StructDecl UndefinedStructImpl
+11:3 TypedefDecl Struct def
+8:9 StructDecl <no-name> def cnt
+9:9 FieldDecl j def
+10:12 FieldDecl p_str def
+13:5 VarDecl int_arr def
+16:6 FunctionDecl foo
+17:6 FunctionDecl bar
+18:5 FunctionDecl baz
+19:7 FunctionDecl quux
+21:14 TypedefDecl Foo def
+22:16 TypedefDecl Bar def

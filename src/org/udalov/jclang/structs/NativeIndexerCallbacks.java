@@ -21,10 +21,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.udalov.jclang.CXFile;
-import org.udalov.jclang.Cursor;
-import org.udalov.jclang.DeclarationInfo;
-import org.udalov.jclang.IndexerCallback;
+import org.udalov.jclang.*;
 
 @SuppressWarnings("unused")
 public class NativeIndexerCallbacks extends Structure {
@@ -64,6 +61,7 @@ public class NativeIndexerCallbacks extends Structure {
             public void apply(@Nullable Pointer clientData, @NotNull CXIdxDeclInfo.ByReference info) {
                 DeclarationInfo declarationInfo = new DeclarationInfo(
                         new Cursor(info.cursor),
+                        new IndexLocation(info.loc),
                         info.isRedeclaration,
                         info.isDefinition,
                         info.isContainer,

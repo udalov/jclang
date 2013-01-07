@@ -17,10 +17,12 @@
 package org.udalov.jclang;
 
 import com.sun.jna.*;
+import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.udalov.jclang.structs.CXCursor;
+import org.udalov.jclang.structs.CXIdxLoc;
 import org.udalov.jclang.structs.CXString;
 import org.udalov.jclang.structs.NativeIndexerCallbacks;
 
@@ -67,7 +69,12 @@ import java.util.HashMap;
     int indexSourceFile(@NotNull Pointer indexAction, @Nullable Void clientData, @NotNull NativeIndexerCallbacks indexCallbacks,
                         int indexCallbacksSize, int indexOptions, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
                         int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles,
-                        @Nullable PointerByReference translationUnit, int tuOptions);
+                        @Nullable PointerByReference /* CXTranslationUnit */ translationUnit, int tuOptions);
+
+
+    void indexLoc_getFileLocation(@NotNull CXIdxLoc.ByValue loc, @Nullable PointerByReference /* CXIdxClientFile */ indexFile,
+                                  @Nullable PointerByReference /* CXFile */ file, @Nullable IntByReference line,
+                                  @Nullable IntByReference column, @Nullable IntByReference offset);
 
 
     int getNumDiagnostics(@NotNull TranslationUnit unit);
