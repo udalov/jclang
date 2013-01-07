@@ -16,6 +16,7 @@
 
 package org.udalov.jclang;
 
+import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -26,20 +27,15 @@ public class TestUtils {
     private TestUtils() {}
 
     @NotNull
-    public static String loadFileContents(@NotNull String fileName) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            StringBuilder sb = new StringBuilder();
-            String s;
-            while ((s = reader.readLine()) != null) {
-                sb.append(s).append(LINE_SEPARATOR);
-            }
-            reader.close();
-            return sb.toString();
+    public static String loadFileContents(@NotNull String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        StringBuilder sb = new StringBuilder();
+        String s;
+        while ((s = reader.readLine()) != null) {
+            sb.append(s).append(LINE_SEPARATOR);
         }
-        catch (Exception e) {
-            throw rethrow(e);
-        }
+        reader.close();
+        return sb.toString();
     }
 
     @NotNull
@@ -59,5 +55,24 @@ public class TestUtils {
     @NotNull
     public static RuntimeException rethrow(@NotNull Exception e) {
         throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
+    }
+
+    public static void createOrCompare(@NotNull String actual, @NotNull String expectedFileName) {
+        try {
+            String expected = loadFileContents(expectedFileName);
+            Assert.assertEquals(expected, actual);
+        }
+        catch (IOException e) {
+            try {
+                PrintWriter out = new PrintWriter(new File(expectedFileName));
+                out.println(actual);
+                out.close();
+                Assert.fail("Expected file wasn't found, it will be created");
+            }
+            catch (IOException ee) {
+                ee.printStackTrace();
+                Assert.fail(ee.getMessage());
+            }
+        }
     }
 }

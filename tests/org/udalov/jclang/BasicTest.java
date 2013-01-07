@@ -27,6 +27,7 @@ import java.util.List;
 import static org.udalov.jclang.Diagnostic.DisplayOptions.*;
 import static org.udalov.jclang.Diagnostic.Severity;
 import static org.udalov.jclang.Diagnostic.Severity.*;
+import static org.udalov.jclang.TestUtils.createOrCompare;
 
 public class BasicTest extends ClangTest {
     @NotNull
@@ -64,17 +65,17 @@ public class BasicTest extends ClangTest {
         List<Diagnostic> diagnostics = unit.getDiagnostics();
         assertEquals(1, diagnostics.size());
         Diagnostic diagnostic = diagnostics.iterator().next();
-        StringWriter str = new StringWriter();
-        PrintWriter writer = new PrintWriter(str);
-        writer.println(diagnostic.format(DISPLAY_SOURCE_LOCATION));
-        writer.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_COLUMN));
-        writer.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_SOURCE_RANGES));
+        StringWriter sw = new StringWriter();
+        PrintWriter out = new PrintWriter(sw);
+        out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION));
+        out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_COLUMN));
+        out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_SOURCE_RANGES));
         // TODO: option is not available for this particular warning, find another one where it is
-        writer.println(diagnostic.format(DISPLAY_OPTION));
-        writer.println(diagnostic.format(DISPLAY_CATEGORY_ID));
-        writer.println(diagnostic.format(DISPLAY_CATEGORY_NAME));
-        writer.close();
-        assertEquals(TestUtils.loadFileContents(getDir() + "diagnosticDisplayOptions.txt"), str.toString());
+        out.println(diagnostic.format(DISPLAY_OPTION));
+        out.println(diagnostic.format(DISPLAY_CATEGORY_ID));
+        out.println(diagnostic.format(DISPLAY_CATEGORY_NAME));
+        out.close();
+        createOrCompare(sw.toString(), getDir() + "diagnosticDisplayOptions.txt");
     }
 
     public void testDiagnosticSeverity() {
