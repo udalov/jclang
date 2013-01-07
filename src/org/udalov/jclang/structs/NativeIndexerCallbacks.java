@@ -22,6 +22,8 @@ import com.sun.jna.Structure;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.udalov.jclang.CXFile;
+import org.udalov.jclang.Cursor;
+import org.udalov.jclang.DeclarationInfo;
 import org.udalov.jclang.IndexerCallback;
 
 @SuppressWarnings("unused")
@@ -57,6 +59,19 @@ public class NativeIndexerCallbacks extends Structure {
                 callback.startedTranslationUnit();
             }
         };
+        this.indexDeclaration = new IndexDeclarationCallback() {
+            @Override
+            public void apply(@Nullable Pointer clientData, @NotNull CXIdxDeclInfo.ByReference info) {
+                DeclarationInfo declarationInfo = new DeclarationInfo(
+                        new Cursor(info.cursor),
+                        info.isRedeclaration,
+                        info.isDefinition,
+                        info.isContainer,
+                        info.isImplicit
+                );
+                callback.indexDeclaration(declarationInfo);
+            }
+        };
         initFieldOrder();
     }
 
@@ -72,5 +87,9 @@ public class NativeIndexerCallbacks extends Structure {
 
     public interface StartedTranslationUnitCallback extends Callback {
         void apply(@Nullable Pointer clientData, @Nullable Pointer reserved);
+    }
+
+    public interface IndexDeclarationCallback extends Callback {
+        void apply(@Nullable Pointer clientData, @NotNull CXIdxDeclInfo.ByReference info);
     }
 }

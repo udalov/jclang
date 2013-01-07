@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package org.udalov.jclang;
+package org.udalov.jclang.structs;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
 
-import java.io.File;
+@SuppressWarnings("unused")
+public class CXCursor extends Structure {
+    // TODO: CXCursorKind
+    public int kind;
+    public int xdata;
+    public Pointer[] data = new Pointer[3];
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
-
-    void enteredMainFile(@NotNull File mainFile);
-
-    void startedTranslationUnit();
-
-    void indexDeclaration(@NotNull DeclarationInfo info);
+    public CXCursor() {
+        super();
+        setFieldOrder(new String[]{"kind", "xdata", "data"});
+    }
+    
+    public static class ByValue extends CXCursor implements Structure.ByValue {}
 }

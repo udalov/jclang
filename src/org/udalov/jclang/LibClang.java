@@ -20,6 +20,7 @@ import com.sun.jna.*;
 import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.udalov.jclang.structs.CXCursor;
 import org.udalov.jclang.structs.CXString;
 import org.udalov.jclang.structs.NativeIndexerCallbacks;
 
@@ -42,6 +43,10 @@ import java.util.HashMap;
 
     @NotNull
     CXString.ByValue getFileName(@NotNull CXFile file);
+
+
+    @NotNull
+    CXString.ByValue getCursorSpelling(@NotNull CXCursor.ByValue cursor);
 
 
     @NotNull

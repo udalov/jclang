@@ -28,4 +28,8 @@ public abstract class AbstractIndexerCallback implements IndexerCallback {
     @Override
     public void startedTranslationUnit() {
     }
+
+    @Override
+    public void indexDeclaration(@NotNull DeclarationInfo info) {
+    }
 }

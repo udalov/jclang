@@ -17,15 +17,21 @@
 package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
+import org.udalov.jclang.structs.CXCursor;
+import org.udalov.jclang.structs.CXString;
 
-import java.io.File;
+public class Cursor {
+    private final CXCursor.ByValue cursor;
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
+    public Cursor(@NotNull CXCursor.ByValue cursor) {
+        this.cursor = cursor;
+    }
 
-    void enteredMainFile(@NotNull File mainFile);
-
-    void startedTranslationUnit();
-
-    void indexDeclaration(@NotNull DeclarationInfo info);
+    @NotNull
+    public String getSpelling() {
+        CXString.ByValue spelling = LibClang.I.getCursorSpelling(cursor);
+        // TODO: dealloc
+        String str = LibClang.I.getCString(spelling);
+        return str;
+    }
 }

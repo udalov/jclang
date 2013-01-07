@@ -1,0 +1,17 @@
+i def
+ch def
+str def
+ptr def
+UndefinedStruct def
+UndefinedStructImpl
+Struct def
+<no-name> def cnt
+j def
+p_str def
+int_arr def
+foo
+bar
+baz
+quux
+Foo def
+Bar def

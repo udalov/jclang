@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package org.udalov.jclang;
+package org.udalov.jclang.structs;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.jna.Structure;
 
-import java.io.File;
+@SuppressWarnings("unused")
+public class CXIdxAttrInfo extends Structure {
+    // TODO: CXIdxAttrKind
+    public int kind;
+    public CXCursor.ByValue cursor;
+    public CXIdxLoc.ByValue loc;
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
+    public CXIdxAttrInfo() {
+        super();
+        setFieldOrder(new String[]{"kind", "cursor", "loc"});
+    }
 
-    void enteredMainFile(@NotNull File mainFile);
-
-    void startedTranslationUnit();
-
-    void indexDeclaration(@NotNull DeclarationInfo info);
+    public static class ByReference extends CXIdxAttrInfo implements Structure.ByReference {}
 }

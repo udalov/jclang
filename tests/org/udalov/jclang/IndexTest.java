@@ -19,6 +19,10 @@ package org.udalov.jclang;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import static org.udalov.jclang.TestUtils.createOrCompare;
 
 public class IndexTest extends ClangTest {
     @NotNull
@@ -64,5 +68,25 @@ public class IndexTest extends ClangTest {
         });
         assertNotNull(handle[0]);
         assertEquals(new File(getTestDeclarationsFile()).getAbsoluteFile(), handle[0].getAbsoluteFile());
+    }
+
+    public void testIndexDeclaration() {
+        StringWriter sw = new StringWriter();
+        final PrintWriter out = new PrintWriter(sw);
+        indexTestDeclarations(new AbstractIndexerCallback() {
+            @Override
+            public void indexDeclaration(@NotNull DeclarationInfo info) {
+                Cursor cursor = info.getCursor();
+                String spelling = cursor.getSpelling();
+                out.print(spelling.isEmpty() ? "<no-name>" : spelling);
+                if (info.isRedeclaration()) out.print(" redecl");
+                if (info.isDefinition()) out.print(" def");
+                if (info.isContainer()) out.print(" cnt");
+                if (info.isImplicit()) out.print(" implicit");
+                out.println();
+            }
+        });
+        out.close();
+        createOrCompare(sw.toString(), getDir() + "indexDeclaration.txt");
     }
 }

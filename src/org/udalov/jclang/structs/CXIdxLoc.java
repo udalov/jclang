@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package org.udalov.jclang;
+package org.udalov.jclang.structs;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
 
-import java.io.File;
+@SuppressWarnings("unused")
+public class CXIdxLoc extends Structure {
+    public Pointer[] ptr_data = new Pointer[2];
+    public int int_data;
 
-public interface IndexerCallback {
-    IndexerCallback DO_NOTHING = new AbstractIndexerCallback() {};
+    public CXIdxLoc() {
+        super();
+        setFieldOrder(new String[]{"ptr_data", "int_data"});
+    }
 
-    void enteredMainFile(@NotNull File mainFile);
-
-    void startedTranslationUnit();
-
-    void indexDeclaration(@NotNull DeclarationInfo info);
+    public static class ByValue extends CXIdxLoc implements Structure.ByValue {}
 }
