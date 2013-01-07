@@ -39,12 +39,12 @@ public class TestUtils {
     }
 
     @NotNull
-    public static File createFileWithContents(@NotNull String contents) {
+    public static File createTempFileWithContents(@NotNull String contents) {
         try {
             File dummy = File.createTempFile("jclang", ".h");
-            PrintWriter writer = new PrintWriter(dummy);
-            writer.println(contents);
-            writer.close();
+            PrintWriter out = new PrintWriter(dummy);
+            out.print(contents);
+            out.close();
             return dummy;
         }
         catch (Exception e) {
@@ -65,7 +65,7 @@ public class TestUtils {
         catch (IOException e) {
             try {
                 PrintWriter out = new PrintWriter(new File(expectedFileName));
-                out.println(actual);
+                out.print(actual);
                 out.close();
                 Assert.fail("Expected file wasn't found, it will be created");
             }

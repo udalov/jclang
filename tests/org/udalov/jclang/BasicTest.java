@@ -46,7 +46,7 @@ public class BasicTest extends ClangTest {
 
     public void testParseTranslationUnit() {
         Index index = Clang.INSTANCE.createIndex(false, false);
-        index.parseTranslationUnit(TestUtils.createFileWithContents("").getAbsolutePath(), new String[]{});
+        index.parseTranslationUnit(TestUtils.createTempFileWithContents("").getAbsolutePath(), new String[]{});
     }
 
     public void testTranslationException() {
