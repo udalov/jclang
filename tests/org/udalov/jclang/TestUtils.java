@@ -21,6 +21,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 public class TestUtils {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -60,18 +63,18 @@ public class TestUtils {
     public static void createOrCompare(@NotNull String actual, @NotNull String expectedFileName) {
         try {
             String expected = loadFileContents(expectedFileName);
-            Assert.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
         catch (IOException e) {
             try {
                 PrintWriter out = new PrintWriter(new File(expectedFileName));
                 out.print(actual);
                 out.close();
-                Assert.fail("Expected file wasn't found, it will be created");
+                assertEquals("Expected file wasn't found, it will be created", "", actual);
             }
             catch (IOException ee) {
                 ee.printStackTrace();
-                Assert.fail(ee.getMessage());
+                fail(ee.getMessage());
             }
         }
     }
