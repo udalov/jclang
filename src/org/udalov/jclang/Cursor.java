@@ -34,4 +34,10 @@ public class Cursor {
         String str = LibClang.I.getCString(spelling);
         return str;
     }
+
+    @NotNull
+    public CursorKind getKind() {
+        // We should've called clang_getCursorKind here, but this works and is more efficient
+        return CursorKind.fromNative(cursor.kind);
+    }
 }

@@ -21,7 +21,6 @@ import com.sun.jna.Structure;
 
 @SuppressWarnings("unused")
 public class CXCursor extends Structure {
-    // TODO: CXCursorKind
     public int kind;
     public int xdata;
     public Pointer[] data = new Pointer[3];

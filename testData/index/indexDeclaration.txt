@@ -1,17 +1,17 @@
-i def
-ch def
-str def
-ptr def
-UndefinedStruct def
-UndefinedStructImpl
-Struct def
-<no-name> def cnt
-j def
-p_str def
-int_arr def
-foo
-bar
-baz
-quux
-Foo def
-Bar def
+VarDecl i def
+VarDecl ch def
+VarDecl str def
+VarDecl ptr def
+TypedefDecl UndefinedStruct def
+StructDecl UndefinedStructImpl
+TypedefDecl Struct def
+StructDecl <no-name> def cnt
+FieldDecl j def
+FieldDecl p_str def
+VarDecl int_arr def
+FunctionDecl foo
+FunctionDecl bar
+FunctionDecl baz
+FunctionDecl quux
+TypedefDecl Foo def
+TypedefDecl Bar def

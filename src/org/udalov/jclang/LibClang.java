@@ -48,6 +48,9 @@ import java.util.HashMap;
     @NotNull
     CXString.ByValue getCursorSpelling(@NotNull CXCursor.ByValue cursor);
 
+    @NotNull
+    CXString.ByValue getCursorKindSpelling(int kind);
+
 
     @NotNull
     Index createIndex(boolean excludeDeclarationsFromPCH, boolean displayDiagnostics);

@@ -17,6 +17,7 @@
 package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
+import org.udalov.jclang.structs.CXCursor;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -33,6 +34,11 @@ public class BasicTest extends ClangTest {
     @NotNull
     private String getDir() {
         return getTestDataDir() + "/basic/";
+    }
+
+    @NotNull
+    private static String lettersOnly(@NotNull String s) {
+        return s.replaceAll("[^A-Za-z]+", "");
     }
 
     public void testCreateIndex() {
@@ -87,5 +93,23 @@ public class BasicTest extends ClangTest {
             actual.add(diagnostic.getSeverity());
         }
         assertEquals(Arrays.asList(ERROR, WARNING, FATAL), actual);
+    }
+
+    public void testCursorKinds() {
+        // For some reason, CXCursorKind spelling is not always equal to the enum constant name, so we check spellings with a saved list
+        StringWriter sw = new StringWriter();
+        PrintWriter out = new PrintWriter(sw);
+
+        for (CursorKind kind : CursorKind.values()) {
+            out.print(kind.toNative());
+            String spelling = kind.getSpelling();
+            if (!lettersOnly(spelling).equalsIgnoreCase(lettersOnly(kind.toString()))) {
+                out.print(" " + kind);
+            }
+            out.println(" " + spelling);
+        }
+        out.close();
+
+        createOrCompare(sw.toString(), getDir() + "cursorKinds.txt");
     }
 }

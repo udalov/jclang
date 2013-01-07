@@ -77,6 +77,7 @@ public class IndexTest extends ClangTest {
             @Override
             public void indexDeclaration(@NotNull DeclarationInfo info) {
                 Cursor cursor = info.getCursor();
+                out.print(cursor.getKind().getSpelling() + " ");
                 String spelling = cursor.getSpelling();
                 out.print(spelling.isEmpty() ? "<no-name>" : spelling);
                 if (info.isRedeclaration()) out.print(" redecl");
