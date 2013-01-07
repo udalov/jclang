@@ -43,7 +43,7 @@ public class Diagnostic extends PointerType {
     public String format(@NotNull DisplayOptions... options) {
         // TODO: dealloc
         int flags = Util.buildOptionsMask(options);
-        CXString string = LibClang.I.formatDiagnostic(this, flags);
+        CXString.ByValue string = LibClang.I.formatDiagnostic(this, flags);
         return LibClang.I.getCString(string);
     }
 

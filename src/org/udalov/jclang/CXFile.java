@@ -25,7 +25,7 @@ import java.io.File;
 public class CXFile extends PointerType {
     @NotNull
     public File toFile() {
-        CXString name = LibClang.I.getFileName(this);
+        CXString.ByValue name = LibClang.I.getFileName(this);
         // TODO: dealloc
         String nameString = LibClang.I.getCString(name);
         return new File(nameString);

@@ -37,11 +37,11 @@ import java.util.HashMap;
     }});
 
     @NotNull
-    String getCString(@NotNull CXString string);
+    String getCString(@NotNull CXString.ByValue string);
 
 
     @NotNull
-    CXString getFileName(@NotNull CXFile file);
+    CXString.ByValue getFileName(@NotNull CXFile file);
 
 
     @NotNull
@@ -70,5 +70,5 @@ import java.util.HashMap;
     int getDiagnosticSeverity(@NotNull Diagnostic diagnostic);
 
     @NotNull
-    CXString formatDiagnostic(@NotNull Diagnostic diagnostic, int options);
+    CXString.ByValue formatDiagnostic(@NotNull Diagnostic diagnostic, int options);
 }
