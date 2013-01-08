@@ -1,64 +1,64 @@
-1:5 VarDecl i
+1:5 VarDecl INT i
   c:@i
   VARIABLE
   def
-2:6 VarDecl ch
+2:6 VarDecl CHAR_S ch
   c:@ch
   VARIABLE
   def
-3:7 VarDecl str
+3:7 VarDecl POINTER str
   c:@str
   VARIABLE
   def
-4:7 VarDecl ptr
+4:7 VarDecl POINTER ptr
   c:@ptr
   VARIABLE
   def
-6:36 TypedefDecl UndefinedStruct
+6:36 TypedefDecl TYPEDEF UndefinedStruct
   c:declarations.h@39@T@UndefinedStruct
   TYPEDEF
   def
-6:16 StructDecl UndefinedStructImpl
+6:16 StructDecl RECORD UndefinedStructImpl
   c:@S@UndefinedStructImpl
   STRUCT
-11:3 TypedefDecl Struct
+11:3 TypedefDecl TYPEDEF Struct
   c:declarations.h@92@T@Struct
   TYPEDEF
   def
-8:9 StructDecl <no-name>
+8:9 StructDecl RECORD <no-name>
   c:@SA@Struct
   STRUCT
   def
   cnt
-9:9 FieldDecl j
+9:9 FieldDecl INT j
   c:@SA@Struct@FI@j
   FIELD
   def
-10:12 FieldDecl p_str
+10:12 FieldDecl POINTER p_str
   c:@SA@Struct@FI@p_str
   FIELD
   def
-13:5 VarDecl int_arr
+13:5 VarDecl CONSTANT_ARRAY int_arr
   c:@int_arr
   VARIABLE
   def
-16:6 FunctionDecl foo
+16:6 FunctionDecl FUNCTION_NO_PROTO foo
   c:@F@foo
   FUNCTION
-17:6 FunctionDecl bar
+17:6 FunctionDecl FUNCTION_PROTO bar
   c:@F@bar
   FUNCTION
-18:5 FunctionDecl baz
+18:5 FunctionDecl FUNCTION_PROTO baz
   c:@F@baz
   FUNCTION
-19:7 FunctionDecl quux
+19:7 FunctionDecl FUNCTION_PROTO quux
   c:@F@quux
   FUNCTION
-21:14 TypedefDecl Foo
+21:14 TypedefDecl TYPEDEF Foo
   c:declarations.h@313@T@Foo
   TYPEDEF
   def
-22:16 TypedefDecl Bar
+22:16 TypedefDecl TYPEDEF Bar
   c:declarations.h@334@T@Bar
   TYPEDEF
   def

@@ -21,10 +21,7 @@ import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.udalov.jclang.structs.CXCursor;
-import org.udalov.jclang.structs.CXIdxLoc;
-import org.udalov.jclang.structs.CXString;
-import org.udalov.jclang.structs.NativeIndexerCallbacks;
+import org.udalov.jclang.structs.*;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -52,6 +49,13 @@ import java.util.HashMap;
 
     @NotNull
     CXString.ByValue getCursorKindSpelling(int kind);
+
+    @NotNull
+    CXType.ByValue getCursorType(@NotNull CXCursor.ByValue cursor);
+
+
+    @NotNull
+    CXString.ByValue getTypeKindSpelling(int kind);
 
 
     @NotNull

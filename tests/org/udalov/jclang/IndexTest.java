@@ -79,9 +79,10 @@ public class IndexTest extends ClangTest {
             public void indexDeclaration(@NotNull DeclarationInfo info) {
                 Cursor cursor = info.getCursor();
                 IndexLocation location = info.getLocation();
-                out.print(location.getLine() + ":" + location.getColumn() + " ");
-                out.print(cursor.getKind().getSpelling() + " ");
-                out.print(nonEmptyCursorSpelling(cursor));
+                out.print(location.getLine() + ":" + location.getColumn());
+                out.print(" " + cursor.getKind().getSpelling());
+                out.print(" " + cursor.getType().getKind());
+                out.print(" " + nonEmptyCursorSpelling(cursor));
                 out.println();
 
                 EntityInfo entityInfo = info.getEntityInfo();

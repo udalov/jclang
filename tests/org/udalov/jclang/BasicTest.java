@@ -38,7 +38,7 @@ public class BasicTest extends ClangTest {
 
     @NotNull
     private static String lettersOnly(@NotNull String s) {
-        return s.replaceAll("[^A-Za-z]+", "");
+        return s.replaceAll("[^A-Za-z]+", "").toLowerCase();
     }
 
     public void testCreateIndex() {
@@ -103,7 +103,7 @@ public class BasicTest extends ClangTest {
         for (CursorKind kind : CursorKind.values()) {
             out.print(kind.toNative());
             String spelling = kind.getSpelling();
-            if (!lettersOnly(spelling).equalsIgnoreCase(lettersOnly(kind.toString()))) {
+            if (!lettersOnly(spelling).equals(lettersOnly(kind.toString()))) {
                 out.print(" " + kind);
             }
             out.println(" " + spelling);
@@ -111,5 +111,19 @@ public class BasicTest extends ClangTest {
         out.close();
 
         createOrCompare(sw.toString(), getDir() + "cursorKinds.txt");
+    }
+
+    public void testTypeKinds() {
+        StringWriter swNative = new StringWriter();
+        StringWriter swEnum = new StringWriter();
+        PrintWriter outNative = new PrintWriter(swNative);
+        PrintWriter outEnum = new PrintWriter(swEnum);
+        for (TypeKind kind : TypeKind.values()) {
+            outNative.println(lettersOnly(kind.getSpelling()));
+            outEnum.println(lettersOnly(kind.toString()));
+        }
+        outNative.close();
+        outEnum.close();
+        assertEquals(swNative.toString(), swEnum.toString());
     }
 }

@@ -40,4 +40,9 @@ public class Cursor {
         // We should've called clang_getCursorKind here, but this works and is more efficient
         return CursorKind.fromNative(cursor.kind);
     }
+
+    @NotNull
+    public Type getType() {
+        return new Type(LibClang.I.getCursorType(cursor));
+    }
 }
