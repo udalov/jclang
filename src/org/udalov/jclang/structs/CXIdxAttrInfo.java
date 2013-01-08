@@ -16,19 +16,28 @@
 
 package org.udalov.jclang.structs;
 
+import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class CXIdxAttrInfo extends Structure {
-    // TODO: CXIdxAttrKind
     public int kind;
     public CXCursor.ByValue cursor;
     public CXIdxLoc.ByValue loc;
 
     public CXIdxAttrInfo() {
         super();
-        setFieldOrder(new String[]{"kind", "cursor", "loc"});
+        initFieldOrder();
     }
 
-    public static class ByReference extends CXIdxAttrInfo implements Structure.ByReference {}
+    public CXIdxAttrInfo(@NotNull Pointer pointer) {
+        super(pointer);
+        initFieldOrder();
+        read();
+    }
+
+    private void initFieldOrder() {
+        setFieldOrder(new String[]{"kind", "cursor", "loc"});
+    }
 }

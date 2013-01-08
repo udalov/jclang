@@ -92,4 +92,25 @@ public class IndexTest extends ClangTest {
         out.close();
         createOrCompare(sw.toString(), getDir() + "indexDeclaration.txt");
     }
+
+    public void testIndexObjCAttributes() {
+        StringWriter sw = new StringWriter();
+        final PrintWriter out = new PrintWriter(sw);
+        Index index = Clang.INSTANCE.createIndex(false, false);
+        index.indexSourceFile(new AbstractIndexerCallback() {
+            @Override
+            public void indexDeclaration(@NotNull DeclarationInfo info) {
+                out.println(info.getCursor().getSpelling());
+                for (IndexAttribute attribute : info.getAttributes()) {
+                    IndexLocation location = attribute.getLocation();
+                    out.print("  " + location.getLine() + ":" + location.getColumn());
+                    out.print(" " + attribute.getKind());
+                    out.print(" " + attribute.getCursor().getKind());
+                    out.println();
+                }
+            }
+        }, getDir() + "objcAttributes.h", new String[]{"-ObjC"});
+        out.close();
+        createOrCompare(sw.toString(), getDir() + "objcAttributes.txt");
+    }
 }

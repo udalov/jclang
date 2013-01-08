@@ -18,6 +18,7 @@ package org.udalov.jclang.structs;
 
 import com.sun.jna.Structure;
 import com.sun.jna.ptr.PointerByReference;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class CXIdxDeclInfo extends Structure {
@@ -31,6 +32,7 @@ public class CXIdxDeclInfo extends Structure {
     public boolean isContainer;
     public CXIdxContainerInfo.ByReference declAsContainer;
     public boolean isImplicit;
+    @Nullable
     public PointerByReference /* CXIdxAttrInfo */ attributes;
     public int numAttributes;
 

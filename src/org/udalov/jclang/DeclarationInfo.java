@@ -18,6 +18,9 @@ package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DeclarationInfo {
     private final Cursor cursor;
     private final IndexLocation location;
@@ -25,6 +28,7 @@ public class DeclarationInfo {
     private final boolean isDefinition;
     private final boolean isContainer;
     private final boolean isImplicit;
+    private final List<IndexAttribute> attributes;
 
     public DeclarationInfo(
             @NotNull Cursor cursor,
@@ -32,14 +36,15 @@ public class DeclarationInfo {
             boolean isRedeclaration,
             boolean isDefinition,
             boolean isContainer,
-            boolean isImplicit
-    ) {
+            boolean isImplicit,
+            @NotNull List<IndexAttribute> attributes) {
         this.cursor = cursor;
         this.location = location;
         this.isRedeclaration = isRedeclaration;
         this.isDefinition = isDefinition;
         this.isContainer = isContainer;
         this.isImplicit = isImplicit;
+        this.attributes = attributes;
     }
 
     @NotNull
@@ -66,5 +71,10 @@ public class DeclarationInfo {
 
     public boolean isImplicit() {
         return isImplicit;
+    }
+
+    @NotNull
+    public List<IndexAttribute> getAttributes() {
+        return Collections.unmodifiableList(attributes);
     }
 }

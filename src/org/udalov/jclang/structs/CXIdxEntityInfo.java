@@ -18,6 +18,7 @@ package org.udalov.jclang.structs;
 
 import com.sun.jna.Structure;
 import com.sun.jna.ptr.PointerByReference;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class CXIdxEntityInfo extends Structure {
@@ -30,6 +31,7 @@ public class CXIdxEntityInfo extends Structure {
     public String name;
     public String USR;
     public CXCursor.ByValue cursor;
+    @Nullable
     public PointerByReference /* CXIdxAttrInfo */ attributes;
     public int numAttributes;
 
