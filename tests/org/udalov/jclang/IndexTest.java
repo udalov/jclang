@@ -17,6 +17,7 @@
 package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -80,13 +81,13 @@ public class IndexTest extends ClangTest {
                 IndexLocation location = info.getLocation();
                 out.print(location.getLine() + ":" + location.getColumn() + " ");
                 out.print(cursor.getKind().getSpelling() + " ");
-                String spelling = cursor.getSpelling();
-                out.print(spelling.isEmpty() ? "<no-name>" : spelling);
+                out.print(nonEmptyCursorSpelling(cursor));
                 out.println();
 
                 EntityInfo entityInfo = info.getEntityInfo();
                 out.println("  " + entityInfo.getUSR());
                 out.println("  " + entityInfo.getKind());
+                String spelling = cursor.getSpelling();
                 assertEquals(spelling.isEmpty() ? null : spelling, entityInfo.getName());
 
                 if (info.isRedeclaration()) out.println("  redecl");
@@ -97,6 +98,12 @@ public class IndexTest extends ClangTest {
         });
         out.close();
         createOrCompare(sw.toString(), getDir() + "indexDeclaration.txt");
+    }
+
+    @NotNull
+    private String nonEmptyCursorSpelling(@NotNull Cursor cursor) {
+        String spelling = cursor.getSpelling();
+        return spelling.isEmpty() ? "<no-name>" : spelling;
     }
 
     public void testIndexObjCAttributes() {
@@ -118,5 +125,28 @@ public class IndexTest extends ClangTest {
         }, getDir() + "objcAttributes.h", new String[]{"-ObjC"});
         out.close();
         createOrCompare(sw.toString(), getDir() + "objcAttributes.txt");
+    }
+
+    public void testIndexContainerInfo() {
+        StringWriter sw = new StringWriter();
+        final PrintWriter out = new PrintWriter(sw);
+        Index index = Clang.INSTANCE.createIndex(false, false);
+        index.indexSourceFile(new AbstractIndexerCallback() {
+            @Override
+            public void indexDeclaration(@NotNull DeclarationInfo info) {
+                out.println(nonEmptyCursorSpelling(info.getCursor()));
+                printContainerCursor(info.getSemanticContainer());
+                printContainerCursor(info.getLexicalContainer());
+                printContainerCursor(info.getDeclAsContainer());
+            }
+
+            private void printContainerCursor(@Nullable ContainerInfo container) {
+                if (container == null) return;
+                Cursor cursor = container.getCursor();
+                out.println("  " + cursor.getKind() + " " + nonEmptyCursorSpelling(cursor));
+            }
+        }, getDir() + "containerInfo.h", new String[]{"-c", "-x", "c++"});
+        out.close();
+        createOrCompare(sw.toString(), getDir() + "containerInfo.txt");
     }
 }

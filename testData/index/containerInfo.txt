@@ -1,0 +1,15 @@
+bar
+  CLASS_DECL A
+  UNEXPOSED_DECL <no-name>
+  CXX_METHOD bar
+A
+  UNEXPOSED_DECL <no-name>
+  UNEXPOSED_DECL <no-name>
+  CLASS_DECL A
+foo
+  CLASS_DECL A
+  CLASS_DECL A
+  CXX_METHOD foo
+bar
+  CLASS_DECL A
+  CLASS_DECL A
