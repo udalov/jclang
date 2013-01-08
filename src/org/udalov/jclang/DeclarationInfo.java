@@ -17,6 +17,7 @@
 package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
+import org.udalov.jclang.structs.CXIdxDeclInfo;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,21 +31,14 @@ public class DeclarationInfo {
     private final boolean isImplicit;
     private final List<IndexAttribute> attributes;
 
-    public DeclarationInfo(
-            @NotNull Cursor cursor,
-            @NotNull IndexLocation location,
-            boolean isRedeclaration,
-            boolean isDefinition,
-            boolean isContainer,
-            boolean isImplicit,
-            @NotNull List<IndexAttribute> attributes) {
-        this.cursor = cursor;
-        this.location = location;
-        this.isRedeclaration = isRedeclaration;
-        this.isDefinition = isDefinition;
-        this.isContainer = isContainer;
-        this.isImplicit = isImplicit;
-        this.attributes = attributes;
+    public DeclarationInfo(@NotNull CXIdxDeclInfo info) {
+        this.cursor = new Cursor(info.cursor);
+        this.location = new IndexLocation(info.loc);
+        this.isRedeclaration = info.isRedeclaration;
+        this.isDefinition = info.isDefinition;
+        this.isContainer = info.isContainer;
+        this.isImplicit = info.isImplicit;
+        this.attributes = IndexAttribute.createFromNative(info.attributes, info.numAttributes);
     }
 
     @NotNull

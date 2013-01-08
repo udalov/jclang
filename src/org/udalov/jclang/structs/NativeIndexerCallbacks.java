@@ -19,14 +19,11 @@ package org.udalov.jclang.structs;
 import com.sun.jna.Callback;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
-import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.udalov.jclang.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.udalov.jclang.CXFile;
+import org.udalov.jclang.DeclarationInfo;
+import org.udalov.jclang.IndexerCallback;
 
 @SuppressWarnings("unused")
 public class NativeIndexerCallbacks extends Structure {
@@ -64,36 +61,7 @@ public class NativeIndexerCallbacks extends Structure {
         this.indexDeclaration = new IndexDeclarationCallback() {
             @Override
             public void apply(@Nullable Pointer clientData, @NotNull CXIdxDeclInfo.ByReference info) {
-                DeclarationInfo declarationInfo = new DeclarationInfo(
-                        new Cursor(info.cursor),
-                        new IndexLocation(info.loc),
-                        info.isRedeclaration,
-                        info.isDefinition,
-                        info.isContainer,
-                        info.isImplicit,
-                        getIndexAttributes(info.attributes, info.numAttributes)
-                );
-                callback.indexDeclaration(declarationInfo);
-            }
-
-            @NotNull
-            private List<IndexAttribute> getIndexAttributes(@Nullable PointerByReference attributes, int numAttributes) {
-                if (attributes == null || numAttributes == 0) {
-                    return Collections.emptyList();
-                }
-                CXIdxAttrInfo attrInfo = new CXIdxAttrInfo(attributes.getValue());
-                List<IndexAttribute> result = new ArrayList<IndexAttribute>(numAttributes);
-                for (int i = 0; i < numAttributes; i++) {
-                    // TODO: ugly hack, figure out how to make toArray() stuff work here
-                    CXIdxAttrInfo info = new CXIdxAttrInfo(attributes.getPointer().getPointer(i * attrInfo.size() / Pointer.SIZE));
-                    IndexAttribute attribute = new IndexAttribute(
-                            IndexAttribute.Kind.values()[info.kind],
-                            new Cursor(info.cursor),
-                            new IndexLocation(info.loc)
-                    );
-                    result.add(attribute);
-                }
-                return result;
+                callback.indexDeclaration(new DeclarationInfo(info));
             }
         };
         initFieldOrder();
