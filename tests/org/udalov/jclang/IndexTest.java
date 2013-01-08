@@ -82,11 +82,17 @@ public class IndexTest extends ClangTest {
                 out.print(cursor.getKind().getSpelling() + " ");
                 String spelling = cursor.getSpelling();
                 out.print(spelling.isEmpty() ? "<no-name>" : spelling);
-                if (info.isRedeclaration()) out.print(" redecl");
-                if (info.isDefinition()) out.print(" def");
-                if (info.isContainer()) out.print(" cnt");
-                if (info.isImplicit()) out.print(" implicit");
                 out.println();
+
+                EntityInfo entityInfo = info.getEntityInfo();
+                out.println("  " + entityInfo.getUSR());
+                out.println("  " + entityInfo.getKind());
+                assertEquals(spelling.isEmpty() ? null : spelling, entityInfo.getName());
+
+                if (info.isRedeclaration()) out.println("  redecl");
+                if (info.isDefinition()) out.println("  def");
+                if (info.isContainer()) out.println("  cnt");
+                if (info.isImplicit()) out.println("  implicit");
             }
         });
         out.close();

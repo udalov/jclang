@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DeclarationInfo {
+    private final EntityInfo entityInfo;
     private final Cursor cursor;
     private final IndexLocation location;
     private final boolean isRedeclaration;
@@ -32,6 +33,7 @@ public class DeclarationInfo {
     private final List<IndexAttribute> attributes;
 
     public DeclarationInfo(@NotNull CXIdxDeclInfo info) {
+        this.entityInfo = new EntityInfo(info.entityInfo);
         this.cursor = new Cursor(info.cursor);
         this.location = new IndexLocation(info.loc);
         this.isRedeclaration = info.isRedeclaration;
@@ -39,6 +41,11 @@ public class DeclarationInfo {
         this.isContainer = info.isContainer;
         this.isImplicit = info.isImplicit;
         this.attributes = IndexAttribute.createFromNative(info.attributes, info.numAttributes);
+    }
+
+    @NotNull
+    public EntityInfo getEntityInfo() {
+        return entityInfo;
     }
 
     @NotNull

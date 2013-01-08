@@ -1,17 +1,64 @@
-1:5 VarDecl i def
-2:6 VarDecl ch def
-3:7 VarDecl str def
-4:7 VarDecl ptr def
-6:36 TypedefDecl UndefinedStruct def
+1:5 VarDecl i
+  c:@i
+  VARIABLE
+  def
+2:6 VarDecl ch
+  c:@ch
+  VARIABLE
+  def
+3:7 VarDecl str
+  c:@str
+  VARIABLE
+  def
+4:7 VarDecl ptr
+  c:@ptr
+  VARIABLE
+  def
+6:36 TypedefDecl UndefinedStruct
+  c:declarations.h@39@T@UndefinedStruct
+  TYPEDEF
+  def
 6:16 StructDecl UndefinedStructImpl
-11:3 TypedefDecl Struct def
-8:9 StructDecl <no-name> def cnt
-9:9 FieldDecl j def
-10:12 FieldDecl p_str def
-13:5 VarDecl int_arr def
+  c:@S@UndefinedStructImpl
+  STRUCT
+11:3 TypedefDecl Struct
+  c:declarations.h@92@T@Struct
+  TYPEDEF
+  def
+8:9 StructDecl <no-name>
+  c:@SA@Struct
+  STRUCT
+  def
+  cnt
+9:9 FieldDecl j
+  c:@SA@Struct@FI@j
+  FIELD
+  def
+10:12 FieldDecl p_str
+  c:@SA@Struct@FI@p_str
+  FIELD
+  def
+13:5 VarDecl int_arr
+  c:@int_arr
+  VARIABLE
+  def
 16:6 FunctionDecl foo
+  c:@F@foo
+  FUNCTION
 17:6 FunctionDecl bar
+  c:@F@bar
+  FUNCTION
 18:5 FunctionDecl baz
+  c:@F@baz
+  FUNCTION
 19:7 FunctionDecl quux
-21:14 TypedefDecl Foo def
-22:16 TypedefDecl Bar def
+  c:@F@quux
+  FUNCTION
+21:14 TypedefDecl Foo
+  c:declarations.h@313@T@Foo
+  TYPEDEF
+  def
+22:16 TypedefDecl Bar
+  c:declarations.h@334@T@Bar
+  TYPEDEF
+  def

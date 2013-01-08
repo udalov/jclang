@@ -22,11 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class CXIdxEntityInfo extends Structure {
-    // TODO: CXIdxEntityKind
     public int kind;
-    // TODO: CXIdxEntityCXXTemplateKind
     public int templateKind;
-    // TODO: CXIdxEntityLanguage
     public int lang;
     public String name;
     public String USR;
