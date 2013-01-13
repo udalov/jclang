@@ -56,7 +56,9 @@ public class DiagnosticTest extends ClangTest {
         PrintWriter out = new PrintWriter(sw);
         for (Diagnostic diagnostic : diagnostics) {
             String s = diagnostic.format(DISPLAY_SOURCE_LOCATION);
-            out.println(s.substring(s.lastIndexOf('/') + 1));
+            s = s.substring(s.lastIndexOf('/') + 1);
+            s = s.substring(s.lastIndexOf('\\') + 1);
+            out.println(s);
         }
         out.close();
         return sw.toString();
