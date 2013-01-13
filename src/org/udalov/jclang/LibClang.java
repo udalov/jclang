@@ -39,6 +39,9 @@ import java.util.HashMap;
     @NotNull
     String getCString(@NotNull CXString.ByValue string);
 
+    @NotNull
+    CXString.ByValue getClangVersion();
+
 
     @NotNull
     CXString.ByValue getFileName(@NotNull CXFile file);

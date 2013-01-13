@@ -41,6 +41,10 @@ public class BasicTest extends ClangTest {
         return s.replaceAll("[^A-Za-z]+", "").toLowerCase();
     }
 
+    public void testVersion() {
+        assertEquals("clang version 3.2 (tags/RELEASE_32/final)", Clang.INSTANCE.getVersion());
+    }
+
     public void testCreateIndex() {
         boolean[] booleans = {false, true};
         for (boolean excludeDeclarationsFromPCH : booleans) {

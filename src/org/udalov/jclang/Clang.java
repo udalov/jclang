@@ -17,6 +17,7 @@
 package org.udalov.jclang;
 
 import org.jetbrains.annotations.NotNull;
+import org.udalov.jclang.structs.CXString;
 
 public class Clang {
     public static final Clang INSTANCE = new Clang();
@@ -28,5 +29,13 @@ public class Clang {
         // TODO: dealloc
         Index index = LibClang.I.createIndex(excludeDeclarationsFromPCH, displayDiagnostics);
         return index;
+    }
+
+    @NotNull
+    public String getVersion() {
+        CXString.ByValue version = LibClang.I.getClangVersion();
+        // TODO: dealloc
+        String str = LibClang.I.getCString(version);
+        return str;
     }
 }
