@@ -113,7 +113,7 @@
 212 ContinueStmt
 213 BreakStmt
 214 ReturnStmt
-215 AsmStmt
+215 GCCAsmStmt
 216 ObjCAtTryStmt
 217 ObjCAtCatchStmt
 218 ObjCAtFinallyStmt
@@ -127,7 +127,7 @@
 226 SEHTryStmt
 227 SEHExceptStmt
 228 SEHFinallyStmt
-229 MS_ASM_STMT FunctionDecl
+229 MSAsmStmt
 230 NullStmt
 231 DeclStmt
 300 TranslationUnit
@@ -143,4 +143,4 @@
 501 macro definition
 502 macro expansion
 503 inclusion directive
-600 MODULE_IMPORT_DECL FunctionDecl
+600 MODULE_IMPORT_DECL ModuleImport

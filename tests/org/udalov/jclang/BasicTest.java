@@ -76,7 +76,6 @@ public class BasicTest extends ClangTest {
         out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION));
         out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_COLUMN));
         out.println(diagnostic.format(DISPLAY_SOURCE_LOCATION, DISPLAY_SOURCE_RANGES));
-        // TODO: option is not available for this particular warning, find another one where it is
         out.println(diagnostic.format(DISPLAY_OPTION));
         out.println(diagnostic.format(DISPLAY_CATEGORY_ID));
         out.println(diagnostic.format(DISPLAY_CATEGORY_NAME));

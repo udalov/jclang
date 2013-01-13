@@ -1,10 +1,10 @@
 bar
   CLASS_DECL A
-  UNEXPOSED_DECL <no-name>
+  TRANSLATION_UNIT testData/index/containerInfo.h
   CXX_METHOD bar
 A
-  UNEXPOSED_DECL <no-name>
-  UNEXPOSED_DECL <no-name>
+  TRANSLATION_UNIT testData/index/containerInfo.h
+  TRANSLATION_UNIT testData/index/containerInfo.h
   CLASS_DECL A
 foo
   CLASS_DECL A

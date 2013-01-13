@@ -1,6 +1,6 @@
-testData/basic/diagnosticDisplayOptions.h:1: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'; 
-testData/basic/diagnosticDisplayOptions.h:1:7: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'; 
-testData/basic/diagnosticDisplayOptions.h:1:{1:11-1:12}: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'; 
-warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'; 
-warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int';  [2]
-warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int';  [Semantic Issue]
+testData/basic/diagnosticDisplayOptions.h:1: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'
+testData/basic/diagnosticDisplayOptions.h:1:7: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'
+testData/basic/diagnosticDisplayOptions.h:1:{1:11-1:12}: warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int'
+warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int' [-Wint-conversion]
+warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int' [14]
+warning: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int' [Value Conversion Issue]

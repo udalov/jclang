@@ -22,6 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public abstract class ClangTest extends TestCase {
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        System.setProperty("jna.library.path", "dll");
+    }
+
     @NotNull
     protected static File getTestDataDir() {
         return new File("testData/");
