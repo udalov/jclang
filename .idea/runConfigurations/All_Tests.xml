@@ -17,6 +17,7 @@
     </option>
     <envs />
     <dir value="$PROJECT_DIR$/tests" />
+    <fork_mode value="class" />
     <patterns />
     <RunnerSettings RunnerId="Debug">
       <option name="DEBUG_PORT" value="" />
