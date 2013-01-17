@@ -223,8 +223,7 @@ public enum CursorKind {
     @NotNull
     public String getSpelling() {
         CXString.ByValue spelling = LibClang.I.getCursorKindSpelling(toNative());
-        // TODO: dealloc
-        String str = LibClang.I.getCString(spelling);
-        return str;
+        NativePool.I.record(spelling);
+        return LibClang.I.getCString(spelling);
     }
 }

@@ -41,9 +41,9 @@ public class Diagnostic extends PointerType {
 
     @NotNull
     public String format(@NotNull DisplayOptions... options) {
-        // TODO: dealloc
         int flags = Util.buildOptionsMask(options);
         CXString.ByValue string = LibClang.I.formatDiagnostic(this, flags);
+        NativePool.I.record(string);
         return LibClang.I.getCString(string);
     }
 

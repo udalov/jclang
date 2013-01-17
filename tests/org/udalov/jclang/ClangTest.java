@@ -28,6 +28,12 @@ public abstract class ClangTest extends TestCase {
         System.setProperty("jna.library.path", "dll");
     }
 
+    @Override
+    protected void tearDown() throws Exception {
+        Clang.INSTANCE.disposeAll();
+        super.tearDown();
+    }
+
     @NotNull
     protected static File getTestDataDir() {
         return new File("testData/");

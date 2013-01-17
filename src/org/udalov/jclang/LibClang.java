@@ -39,6 +39,9 @@ import java.util.HashMap;
     @NotNull
     String getCString(@NotNull CXString.ByValue string);
 
+    void disposeString(@NotNull CXString.ByValue string);
+
+
     @NotNull
     CXString.ByValue getClangVersion();
 
@@ -64,14 +67,20 @@ import java.util.HashMap;
     @NotNull
     Index createIndex(boolean excludeDeclarationsFromPCH, boolean displayDiagnostics);
 
+    void disposeIndex(@NotNull Index index);
+
     // TODO: class CXUnsavedFile extends Structure
     @Nullable
     TranslationUnit parseTranslationUnit(@NotNull Index index, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
                                          int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles, int options);
 
+    void disposeTranslationUnit(@NotNull TranslationUnit translationUnit);
+
 
     @NotNull
     Pointer IndexAction_create(@NotNull Index index);
+
+    void IndexAction_dispose(@NotNull Pointer /* CXIndexAction */ indexAction);
 
     int indexSourceFile(@NotNull Pointer indexAction, @Nullable Void clientData, @NotNull NativeIndexerCallbacks indexCallbacks,
                         int indexCallbacksSize, int indexOptions, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
@@ -88,6 +97,8 @@ import java.util.HashMap;
 
     @NotNull
     Diagnostic getDiagnostic(@NotNull TranslationUnit unit, int index);
+
+    void disposeDiagnostic(@NotNull Diagnostic diagnostic);
 
     int getDiagnosticSeverity(@NotNull Diagnostic diagnostic);
 

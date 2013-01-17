@@ -26,8 +26,7 @@ public class CXFile extends PointerType {
     @NotNull
     public File toFile() {
         CXString.ByValue name = LibClang.I.getFileName(this);
-        // TODO: dealloc
-        String nameString = LibClang.I.getCString(name);
-        return new File(nameString);
+        NativePool.I.record(name);
+        return new File(LibClang.I.getCString(name));
     }
 }

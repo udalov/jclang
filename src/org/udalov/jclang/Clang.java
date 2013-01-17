@@ -26,16 +26,18 @@ public class Clang {
 
     @NotNull
     public Index createIndex(boolean excludeDeclarationsFromPCH, boolean displayDiagnostics) {
-        // TODO: dealloc
         Index index = LibClang.I.createIndex(excludeDeclarationsFromPCH, displayDiagnostics);
-        return index;
+        return NativePool.I.record(index);
     }
 
     @NotNull
     public String getVersion() {
         CXString.ByValue version = LibClang.I.getClangVersion();
-        // TODO: dealloc
-        String str = LibClang.I.getCString(version);
-        return str;
+        NativePool.I.record(version);
+        return LibClang.I.getCString(version);
+    }
+
+    public void disposeAll() {
+        NativePool.I.disposeAll();
     }
 }

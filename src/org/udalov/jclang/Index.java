@@ -31,18 +31,17 @@ public class Index extends PointerType {
     public TranslationUnit parseTranslationUnit(@Nullable String sourceFilename, @NotNull String[] args, @NotNull Flag... options)
             throws TranslationException {
         int flags = Util.buildOptionsMask(options);
-        // TODO: dealloc
         TranslationUnit translationUnit = LibClang.I.parseTranslationUnit(this, sourceFilename, args, args.length, null, 0, flags);
         if (translationUnit == null) {
             throw new TranslationException();
         }
-        return translationUnit;
+        return NativePool.I.record(translationUnit);
     }
 
     @NotNull
     private Pointer createIndexAction() {
-        // TODO: dealloc after the translation unit
-        return LibClang.I.IndexAction_create(this);
+        Pointer indexAction = LibClang.I.IndexAction_create(this);
+        return NativePool.I.recordIndexAction(indexAction);
     }
 
     @NotNull
@@ -58,6 +57,6 @@ public class Index extends PointerType {
         }
         TranslationUnit tu = new TranslationUnit();
         tu.setPointer(tuRef.getValue());
-        return tu;
+        return NativePool.I.record(tu);
     }
 }

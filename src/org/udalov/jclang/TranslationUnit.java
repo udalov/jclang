@@ -39,9 +39,8 @@ public class TranslationUnit extends PointerType {
         int n = LibClang.I.getNumDiagnostics(this);
         List<Diagnostic> result = new ArrayList<Diagnostic>(n);
         for (int i = 0; i < n; i++) {
-            // TODO: dealloc
             Diagnostic diagnostic = LibClang.I.getDiagnostic(this, i);
-            result.add(diagnostic);
+            result.add(NativePool.I.record(diagnostic));
         }
         return result;
     }
