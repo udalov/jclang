@@ -16,7 +16,6 @@
 
 package org.udalov.jclang;
 
-import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 import com.sun.jna.ptr.PointerByReference;
 import org.jetbrains.annotations.NotNull;
@@ -39,18 +38,13 @@ public class Index extends PointerType {
     }
 
     @NotNull
-    private Pointer createIndexAction() {
-        Pointer indexAction = LibClang.I.IndexAction_create(this);
-        return NativePool.I.recordIndexAction(indexAction);
-    }
-
-    @NotNull
-    public TranslationUnit indexSourceFile(@NotNull IndexerCallback callback, @Nullable String sourceFilename, @NotNull String[] args, @NotNull Flag... options) throws IndexException {
-        Pointer indexAction = createIndexAction();
+    public TranslationUnit indexSourceFile(@NotNull IndexerCallback callback, @Nullable String sourceFilename, @NotNull String[] args,
+            @NotNull Flag... options) throws IndexException {
+        CXIndexAction action = NativePool.I.record(LibClang.I.IndexAction_create(this));
         NativeIndexerCallbacks callbacks = new NativeIndexerCallbacks(callback);
         int flags = Util.buildOptionsMask(options);
         PointerByReference tuRef = new PointerByReference();
-        int exitCode = LibClang.I.indexSourceFile(indexAction, null, callbacks, callbacks.size(), 0 /* TODO: CXIndexOptFlags */,
+        int exitCode = LibClang.I.indexSourceFile(action, null, callbacks, callbacks.size(), 0 /* TODO: CXIndexOptFlags */,
                 sourceFilename, args, args.length, null, 0, tuRef, flags);
         if (exitCode != 0) {
             throw new IndexException(exitCode);

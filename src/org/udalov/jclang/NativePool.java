@@ -16,7 +16,6 @@
 
 package org.udalov.jclang;
 
-import com.sun.jna.Pointer;
 import org.jetbrains.annotations.NotNull;
 import org.udalov.jclang.structs.CXString;
 
@@ -29,7 +28,7 @@ import java.util.List;
     private final List<CXString.ByValue> strings = new ArrayList<CXString.ByValue>();
     private final List<TranslationUnit> translationUnits = new ArrayList<TranslationUnit>();
     private final List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
-    private final List<Pointer /* CXIndexAction */> indexActions = new ArrayList<Pointer>();
+    private final List<CXIndexAction> indexActions = new ArrayList<CXIndexAction>();
     private final List<Index> indexes = new ArrayList<Index>();
 
     private NativePool() {}
@@ -51,7 +50,7 @@ import java.util.List;
     }
 
     @NotNull
-    public Pointer recordIndexAction(@NotNull Pointer /* CXIndexAction */ indexAction) {
+    public CXIndexAction record(@NotNull CXIndexAction indexAction) {
         indexActions.add(indexAction);
         return indexAction;
     }
@@ -73,7 +72,7 @@ import java.util.List;
         for (Diagnostic diagnostic : diagnostics) {
             lib.disposeDiagnostic(diagnostic);
         }
-        for (Pointer indexAction : indexActions) {
+        for (CXIndexAction indexAction : indexActions) {
             lib.IndexAction_dispose(indexAction);
         }
         for (Index index : indexes) {

@@ -78,11 +78,11 @@ import java.util.HashMap;
 
 
     @NotNull
-    Pointer IndexAction_create(@NotNull Index index);
+    CXIndexAction IndexAction_create(@NotNull Index index);
 
-    void IndexAction_dispose(@NotNull Pointer /* CXIndexAction */ indexAction);
+    void IndexAction_dispose(@NotNull CXIndexAction action);
 
-    int indexSourceFile(@NotNull Pointer indexAction, @Nullable Void clientData, @NotNull NativeIndexerCallbacks indexCallbacks,
+    int indexSourceFile(@NotNull CXIndexAction action, @Nullable Void clientData, @NotNull NativeIndexerCallbacks indexCallbacks,
                         int indexCallbacksSize, int indexOptions, @Nullable String sourceFilename, @Nullable String[] commandLineArgs,
                         int numCommandLineArgs, @Nullable Void unsavedFiles, int numUnsavedFiles,
                         @Nullable PointerByReference /* CXTranslationUnit */ translationUnit, int tuOptions);
