@@ -43,16 +43,6 @@ The easiest way to build the project is to open it in [IntelliJ IDEA](http://www
 
 To run tests, use `All Tests` configuration inside IDEA.
 
-## Contributing
-
-Contributions are very welcome. Nevertheless, there are certain rules/suggestions which should be followed before submitting a pull request:
-
-* Launch `All Tests` before commiting to ensure you haven't broken anything
-* Rebase instead of merge when fetching upstream changes to not make useless merge commits and keep the history clean and easy to inspect
-* Annotate all method parameters and return types (except primitive types) with `@Nullable`/`@NotNull`: this helps in tracking down NPE problems
-* For every newly added public method, there should be a test which directly or indirectly checks its behavior. Not really unit tests, but at least something to ensure it all works as expected
-* Do not introduce new warnings in the code. Warnings include diagnostics from javac, as well as inspections in IDEA (the built-in plugin `Inspection Gadgets` should be turned on)
-
 ## License
 
 jclang is licensed under the Apache License v2.0.
